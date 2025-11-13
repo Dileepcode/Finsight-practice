@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FinSight — Finance Analytics Dashboard</title>
+    <!-- Inter font for consistent modern UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="logo">📈</div>
+          <h1 class="brand-name">FinSight</h1>
+        </div>
+        <nav class="nav">
+          <a href="#" class="nav-item active">Dashboard</a>
+          <a href="#" class="nav-item">Revenue</a>
+          <a href="#" class="nav-item">Expenses</a>
+          <a href="#" class="nav-item">Reports</a>
+        </nav>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="top-left">
+            <button id="collapseBtn" class="hamburger" aria-label="Toggle menu">☰</button>
+            <div class="logo-inline">📈 <span class="logo-text">FinSight</span></div>
+          </div>
+          <div class="top-right">
+            <!-- Notifications button -->
+            <button id="notifBtn" class="notif-btn" aria-haspopup="true" aria-expanded="false" aria-label="Show notifications">🔔<span class="badge" id="notifCount">3</span></button>
+            <!-- Theme toggle button -->
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle light and dark mode">🌙</button>
+            <div class="profile"> 
+              <div class="profile-pic">DM</div>
+            </div>
+          </div>
+        </header>
+
+        <main class="main">
+          <section class="cards-grid">
+            <!-- Primary KPI cards requested by the user -->
+            <div class="card">
+              <div class="card-title">Total Revenue</div>
+              <div class="card-value">$2,340,120</div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Monthly Expenses</div>
+              <div class="card-value">$93,370</div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Profit Margin</div>
+              <div class="card-value">52.1%</div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Active Users</div>
+              <div class="card-value">3,482</div>
+            </div>
+
+            <!-- Chart controls (filter by month or quarter) -->
+            <div class="chart-controls">
+              <label for="periodSelect">Filter:</label>
+              <select id="periodSelect" aria-label="Select period to filter charts">
+                <option value="all">All Year</option>
+                <option value="Q1">Q1</option>
+                <option value="Q2">Q2</option>
+                <option value="Q3">Q3</option>
+                <option value="Q4">Q4</option>
+                <option value="Jan">January</option>
+                <option value="Feb">February</option>
+                <option value="Mar">March</option>
+                <option value="Apr">April</option>
+                <option value="May">May</option>
+                <option value="Jun">June</option>
+                <option value="Jul">July</option>
+                <option value="Aug">August</option>
+                <option value="Sep">September</option>
+                <option value="Oct">October</option>
+                <option value="Nov">November</option>
+                <option value="Dec">December</option>
+              </select>
+            </div>
+
+            <!-- Larger chart placeholders remain below -->
+            <div class="card wide">
+              <div class="card-title">Revenue By Month</div>
+              <div class="card-body"><canvas id="revenueChart"></canvas></div>
+            </div>
+
+            <div class="card wide">
+              <div class="card-title">Expenses Breakdown</div>
+              <div class="card-body"><canvas id="expensesChart"></canvas></div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <!-- Notifications panel -->
+    <div id="notifPanel" class="notif-panel" aria-hidden="true">
+      <div class="notif-header">
+        <h3>Notifications</h3>
+        <button id="closeNotif" class="close-btn" aria-label="Close notifications">✕</button>
+      </div>
+      <ul class="notif-list">
+        <li class="notif-item"><div class="notif-title">Payment received</div><div class="notif-meta">2 hours ago</div></li>
+        <li class="notif-item"><div class="notif-title">Server backup completed</div><div class="notif-meta">6 hours ago</div></li>
+        <li class="notif-item"><div class="notif-title">New user signup</div><div class="notif-meta">Yesterday</div></li>
+      </ul>
+      <div class="notif-footer"><button id="markAllRead" class="btn-secondary">Mark all read</button></div>
+    </div>
+    <div id="notifOverlay" class="notif-overlay" aria-hidden="true"></div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

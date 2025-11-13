@@ -1,0 +1,133 @@
+/* FinSight light theme styles */
+:root{
+  /* Minimalist color palette */
+  --bg: #f7fafc;            /* very light gray page background */
+  --surface: #ffffff;       /* card / surface background */
+  --muted: #6b7280;         /* secondary text */
+  --accent: #2563eb;        /* primary blue accent */
+  --accent-2: #60a5fa;      /* lighter accent */
+  --text: #0f172a;          /* primary text */
+  --divider: rgba(15,23,42,0.06);
+  --shadow-sm: 0 6px 16px rgba(2,6,23,0.06);
+  --shadow-lg: 0 20px 40px rgba(2,6,23,0.08);
+  --radius: 12px;
+
+  /* spacing scale */
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+
+  /* typography scale (recommended) */
+  --font-size-base: 16px;   /* browser default */
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+}
+
+/* Dark theme variables applied when `.dark-theme` is set on the root element */
+.dark-theme{
+  /* Dark theme overrides using the same variable names used in light theme */
+  --bg: #071029;
+  --surface: #071225;
+  --muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-2: #93c5fd;
+  --text: #e6eef8;
+  --divider: rgba(255,255,255,0.04);
+  --shadow-sm: 0 8px 20px rgba(2,6,23,0.45);
+  --shadow-lg: 0 30px 60px rgba(2,6,23,0.6);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Inter',Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:var(--font-size-base)}
+a{color:inherit;text-decoration:none}
+
+/* smooth color transitions for theme toggles */
+html,body{transition:background-color .28s ease,color .28s ease}
+
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+
+/* Sidebar */
+.sidebar{background:var(--surface);padding:var(--space-lg);border-right:1px solid var(--divider);display:flex;flex-direction:column;gap:var(--space-lg)}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+.brand-name{font-size:18px;margin:0}
+.nav{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.nav-item{padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:600;transition:background .16s ease,transform .16s ease,color .16s ease}
+.nav-item:hover{background:rgba(37,99,235,0.06);color:var(--text);transform:translateX(4px)}
+.nav-item.active{background:rgba(37,99,235,0.12);color:var(--accent)}
+
+/* Main area (topbar + content) */
+.main-area{display:flex;flex-direction:column;min-height:100vh}
+.topbar{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--space-lg);background:transparent}
+.logo-inline{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo-text{font-size:var(--fs-lg);font-weight:600}
+.hamburger{display:none;background:transparent;border:0;font-size:20px;margin-right:8px}
+.top-right{display:flex;align-items:center;gap:12px}
+.profile-pic{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#eef2ff,#f8fafc);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text);box-shadow:var(--shadow-sm)}
+
+.main{padding:var(--space-lg)}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);align-items:start}
+.card{background:var(--surface);border-radius:var(--radius);padding:var(--space-md);box-shadow:var(--shadow-sm);border:1px solid var(--divider);transition:transform .22s cubic-bezier(.2,.9,.2,1),box-shadow .22s ease,opacity .18s ease}
+.card-title{font-size:var(--fs-sm);color:var(--muted);margin-bottom:var(--space-xs)}
+.card-value{font-size:var(--fs-xl);font-weight:700}
+.card.wide{grid-column:span 3}
+.card-body{height:220px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+/* subtle hover animation for cards */
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.card:active{transform:translateY(-2px)}
+
+/* chart controls */
+.chart-controls{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:var(--space-sm)}
+.chart-controls label{color:var(--muted);font-size:var(--fs-sm)}
+.chart-controls select{padding:8px 10px;border-radius:8px;border:1px solid var(--divider);background:var(--surface);color:var(--text);box-shadow:none}
+
+/* Theme toggle button */
+.theme-toggle{background:transparent;border:0;padding:8px 10px;border-radius:8px;font-size:18px;cursor:pointer;color:var(--muted);transition:background-color .18s ease,color .18s ease}
+.theme-toggle:hover{background:rgba(15,23,42,0.03);color:var(--text)}
+
+/* Responsive rules */
+@media (max-width:1100px){
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .card.wide{grid-column:span 2}
+}
+
+@media (max-width:700px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:60;transform:translateX(-110%);transition:transform .25s ease;padding-top:80px}
+  .sidebar.open{transform:translateX(0)}
+  .hamburger{display:inline-block}
+  .main-area{margin-left:0}
+  .cards-grid{grid-template-columns:1fr}
+  .card.wide{grid-column:span 1}
+}
+
+/* small polish */
+.card-title{letter-spacing:0.2px}
+.nav-item{transition:background .18s,color .18s}
+.logo, .profile-pic{font-size:16px}
+
+/* Notifications button & panel */
+.notif-btn{position:relative;background:transparent;border:0;font-size:18px;cursor:pointer;padding:8px;border-radius:8px;color:var(--muted)}
+.notif-btn .badge{position:absolute;top:6px;right:4px;background:#ef4444;color:white;border-radius:10px;padding:2px 6px;font-size:11px}
+.notif-panel{position:fixed;right:0;top:0;bottom:0;width:340px;max-width:92%;background:var(--surface);box-shadow:0 30px 60px rgba(2,6,23,0.2);transform:translateX(110%);transition:transform .28s ease,opacity .28s ease;z-index:120;display:flex;flex-direction:column}
+.notif-panel.open{transform:translateX(0)}
+.notif-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(15,23,42,0.04)}
+.notif-header h3{margin:0;font-size:16px}
+.notif-list{list-style:none;margin:0;padding:12px;overflow:auto}
+.notif-item{padding:12px;border-radius:10px;background:transparent;margin-bottom:8px;border:1px solid rgba(15,23,42,0.03);display:flex;flex-direction:column}
+.notif-title{font-weight:600}
+.notif-meta{font-size:12px;color:var(--muted);margin-top:6px}
+.notif-footer{padding:12px;border-top:1px solid rgba(15,23,42,0.04);display:flex;justify-content:flex-end}
+.close-btn{background:transparent;border:0;font-size:18px;cursor:pointer}
+.notif-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(2,6,23,0.35);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;z-index:110}
+.notif-overlay.open{opacity:1;visibility:visible}
+
+/* small responsive tweak */
+@media (max-width:700px){
+  .notif-panel{width:92%;}
+}
+
